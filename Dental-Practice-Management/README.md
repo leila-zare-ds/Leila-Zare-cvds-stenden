@@ -16,3 +16,11 @@ I am currently rewriting parts of the original application using Python. The cur
 
 ## Current Status
 The Python redevelopment is ongoing. The screenshots demonstrate some of the implemented modules and interfaces.
+## Database Configuration
+
+The application uses a separate `db_config.txt` file to configure its connection to SQL Server. The configuration file contains three settings:
+
+- `SERVER`: The SQL Server instance name.
+- `DATABASE`: The database name (`DentalPracticeDB`).
+- `DRIVER`: The installed SQL Server ODBC driver.
+
