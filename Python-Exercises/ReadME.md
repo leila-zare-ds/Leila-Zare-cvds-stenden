@@ -6,7 +6,7 @@ This repository includes my Python exercises and coding practice as part of my a
 
 ## Exercises and What I Worked On
 
-The notebook [`debugging_final.ipynb`](debugging_final.ipynb) includes four exercises that I worked through and corrected.
+The notebook [`debugging_final.ipynb`](debugging_final.ipynb) includes four exercises that I worked through, corrected, and tested.
 
 ### Exercise 1 – Fruit ID Mapping (`id_to_fruit`)
 
@@ -35,18 +35,22 @@ The model contains two neural networks:
 - **Generator:** Creates artificial handwritten digit images.
 - **Discriminator:** Tries to distinguish real images from generated ones.
 
-While reviewing the code, I identified two issues:
+While reviewing the code, I identified and corrected two issues:
 
-1. **Batch Size:** The code originally used a fixed batch size for generating random inputs and labels. This could cause problems with the last batch if it contained fewer samples. I changed this part to use `real_samples.size(0)` so the batch size is determined automatically.
-2. **Training Loop:** There was also an issue with the condition used to display generated images. I changed `n == batch_size - 1` to `n == len(train_loader) - 1` so that the images are displayed at the end of each epoch.
+1. **Structural Bug – Batch Size:** The original code used a fixed batch size for generating random inputs and labels. This caused a mismatch when the last batch contained fewer samples than the specified batch size. I corrected this by using `real_samples.size(0)` to determine the actual size of the current batch dynamically. This ensures that the generated inputs and labels have matching dimensions.
 
-**Note about execution:**
+2. **Cosmetic Bug – Image Display Condition:** The original condition used `n == batch_size - 1` to determine when to display generated images. I changed it to `n == len(train_loader) - 1`, so that the generated images are displayed at the end of each epoch.
 
-I completed the code corrections, but I could not run the full GAN training process in my local environment.
+**Testing and Results:**
 
-The main difficulty was installing PyTorch (`torch`) and TorchVision (`torchvision`). Due to internet connection restrictions in Iran, downloading the required packages from the official PyTorch repository was difficult. I tried several times, including using a VPN, but the installation was not completed successfully.
+I successfully executed the GAN training process using PyTorch and the MNIST dataset.
 
-For this reason, I have not claimed that the GAN training was successfully tested. Running and validating this exercise is still pending until the required libraries are available.
+I tested the corrected implementation with two different batch sizes:
+
+- `batch_size = 32`
+- `batch_size = 64`
+
+In both cases, the training completed successfully for 100 epochs without the previous batch-size error. The Generator also produced handwritten digit-like images based on the MNIST dataset.
 
 ## Tools and Libraries
 
@@ -56,15 +60,16 @@ During these exercises, I worked with the following tools and libraries:
 - NumPy
 - Matplotlib
 - CSV module
-- PyTorch (`torch`) – required for the GAN exercise
-- TorchVision (`torchvision`) – required for working with the MNIST dataset and image transformations
+- PyTorch (`torch`)
+- TorchVision (`torchvision`)
+- Jupyter Notebook
 
 ## Current Status
 
 - **Exercise 1:** Corrected and tested successfully.
 - **Exercise 2:** Corrected and tested successfully.
 - **Exercise 3:** Corrected and tested successfully.
-- **Exercise 4:** Code corrections completed, but full execution and testing are still pending because of the installation problems mentioned above.
+- **Exercise 4:** Structural and cosmetic issues corrected; training successfully completed and tested with batch sizes of 32 and 64.
 
 ## Final Remarks
 
